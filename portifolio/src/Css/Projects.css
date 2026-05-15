@@ -9,19 +9,20 @@
 .featured-list {
   display: flex;
   flex-direction: column;
-  gap: 140px;
+  gap: 120px;
 }
 
+/* ── FEATURED ROW ── */
 .featured-row {
   display: grid;
-  grid-template-columns: 7fr 5fr;
-  gap: 0;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
   align-items: center;
   position: relative;
 }
 
 .featured-row.reverse {
-  grid-template-columns: 5fr 7fr;
+  grid-template-columns: 1fr 1fr;
 }
 
 .featured-row.reverse .featured-image {
@@ -34,7 +35,16 @@
   grid-row: 1;
   text-align: right;
   align-items: flex-end;
-  padding: 0 40px 0 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.featured-row.reverse .featured-tech {
+  justify-content: flex-end;
+}
+
+.featured-row.reverse .featured-links {
+  justify-content: flex-end;
 }
 
 /* ── IMAGE SIDE ── */
@@ -52,7 +62,7 @@
   position: absolute;
   inset: 0;
   background: var(--accent);
-  opacity: 0.35;
+  opacity: 0.45;
   mix-blend-mode: multiply;
   transition: opacity 0.3s var(--ease);
   z-index: 1;
@@ -68,7 +78,7 @@
   object-fit: cover;
   border-radius: 10px;
   display: block;
-  filter: grayscale(20%);
+  filter: grayscale(30%);
   transition:
     filter 0.3s var(--ease),
     transform 0.4s var(--ease);
@@ -79,29 +89,17 @@
   transform: scale(1.03);
 }
 
-.image-placeholder {
-  color: var(--accent);
-  width: 60px;
-  height: 60px;
-  opacity: 0.6;
-}
-
-.image-placeholder svg {
-  width: 100%;
-  height: 100%;
-}
-
-/* ── CONTENT SIDE (floating card, overlaps image) ── */
+/* ── CONTENT SIDE — sits beside image, no overlap ── */
 .featured-content {
   display: flex;
   flex-direction: column;
   gap: 14px;
   grid-column: 2;
   grid-row: 1;
-  padding: 0 0 0 40px;
   position: relative;
   z-index: 2;
-  margin-left: -60px;
+  margin-left: 0;
+  padding: 0;
 }
 
 .featured-label {
@@ -114,7 +112,7 @@
 
 .featured-title {
   font-family: var(--font-sans);
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--text-primary);
   transition: color 0.25s var(--ease);
@@ -295,50 +293,7 @@
   transform: translateY(0);
 }
 
-/* RESPONSIVE */
-@media (max-width: 1080px) {
-  #projects {
-    padding: 100px 80px;
-  }
-  .featured-row,
-  .featured-row.reverse {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  .featured-image,
-  .featured-row.reverse .featured-image {
-    grid-column: 1;
-    grid-row: 1;
-  }
-  .featured-content,
-  .featured-row.reverse .featured-content {
-    grid-column: 1;
-    grid-row: 2;
-    margin-left: 0;
-    padding: 0 !important;
-    text-align: left !important;
-    align-items: flex-start !important;
-  }
-  .noteworthy-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  #projects {
-    padding: 80px 25px;
-  }
-  .noteworthy-grid {
-    grid-template-columns: 1fr;
-  }
-  .featured-list {
-    gap: 60px;
-  }
-  .featured-desc-box {
-    padding: 18px 20px;
-  }
-}
-
+/* ── FLOAT ANIMATION ── */
 .featured-row {
   animation: cardFloat 5s ease-in-out infinite;
 }
@@ -346,11 +301,9 @@
 .featured-row:nth-child(2) {
   animation-delay: 1s;
 }
-
 .featured-row:nth-child(3) {
   animation-delay: 2s;
 }
-
 .featured-row:nth-child(4) {
   animation-delay: 3s;
 }
@@ -362,5 +315,55 @@
   }
   50% {
     transform: translateY(-8px);
+  }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1080px) {
+  #projects {
+    padding: 100px 80px;
+  }
+
+  .featured-row,
+  .featured-row.reverse {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .featured-content,
+  .featured-row.reverse .featured-content {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    text-align: left !important;
+    align-items: flex-start !important;
+  }
+
+  .featured-row.reverse .featured-tech,
+  .featured-row.reverse .featured-links {
+    justify-content: flex-start;
+  }
+
+  .noteworthy-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  #projects {
+    padding: 80px 25px;
+  }
+
+  .noteworthy-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-list {
+    gap: 60px;
+  }
+
+  .featured-desc-box {
+    padding: 18px 20px;
   }
 }
